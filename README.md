@@ -4,6 +4,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Website](https://img.shields.io/badge/Website-sauos.net-blue)](https://sauos-aient.sauos.net)
+
+**官网**: [https://sauos-aient.sauos.net](https://sauos-aient.sauos.net)
 
 ## 简介
 
@@ -35,8 +38,8 @@ SAUOS 通过大语言模型和视觉理解能力，实现自然语言驱动的�
 
 ```bash
 # 克隆项目
-git clone https://github.com/YOUR_USERNAME/sauos.git
-cd sauos
+git clone https://github.com/wwwsauoscom/sauos-aient.git
+cd sauos-aient
 
 # 创建虚拟环境
 python -m venv venv
