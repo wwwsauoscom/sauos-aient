@@ -29,7 +29,7 @@ SAUOS 通过大语言模型和视觉理解能力，让计算机像人一样"看"
 
 #### 快速开始
 ```bash
-git clone https://github.com/wwwsauoscom/sauos-aient.git
+git clone https://github.com/sauos-dev/sauos-aient.git
 cd sauos-aient
 pip install -r requirements.txt
 python web.py  # Web界面 http://localhost:5678
@@ -52,7 +52,7 @@ SAUOS enables computers to "see" screens, "understand" interfaces, and "execute"
 
 #### Quick Start
 ```bash
-git clone https://github.com/wwwsauoscom/sauos-aient.git
+git clone https://github.com/sauos-dev/sauos-aient.git
 cd sauos-aient
 pip install -r requirements.txt
 python web.py  # Web UI http://localhost:5678
@@ -75,7 +75,7 @@ SAUOSは大規模言語モデルと視覚理解機能を活用し、コンピュ
 
 #### クイックスタート
 ```bash
-git clone https://github.com/wwwsauoscom/sauos-aient.git
+git clone https://github.com/sauos-dev/sauos-aient.git
 cd sauos-aient
 pip install -r requirements.txt
 python web.py  # Web UI http://localhost:5678
@@ -98,7 +98,7 @@ SAUOS는 대규모 언어 모델과 시각적 이해 기능을 활용하여 컴�
 
 #### 빠른 시작
 ```bash
-git clone https://github.com/wwwsauoscom/sauos-aient.git
+git clone https://github.com/sauos-dev/sauos-aient.git
 cd sauos-aient
 pip install -r requirements.txt
 python web.py  # Web UI http://localhost:5678
@@ -121,7 +121,7 @@ SAUOS ermöglicht Computern durch große Sprachmodelle und visuelle Verständnis
 
 #### Schnellstart
 ```bash
-git clone https://github.com/wwwsauoscom/sauos-aient.git
+git clone https://github.com/sauos-dev/sauos-aient.git
 cd sauos-aient
 pip install -r requirements.txt
 python web.py  # Web UI http://localhost:5678
@@ -144,7 +144,7 @@ SAUOS позволяет компьютерам "видеть" экраны, "п
 
 #### Быстрый старт
 ```bash
-git clone https://github.com/wwwsauoscom/sauos-aient.git
+git clone https://github.com/sauos-dev/sauos-aient.git
 cd sauos-aient
 pip install -r requirements.txt
 python web.py  # Web UI http://localhost:5678
