@@ -1,0 +1,75 @@
+SAUOS 技术栈说明
+==================
+
+一、编程语言
+------------
+Python 3.9+
+
+二、核心依赖库
+--------------
+屏幕操作:
+  - PyAutoGUI: 鼠标/键盘控制
+  - MSS: 高性能屏幕截图
+
+图像处理:
+  - OpenCV (cv2): 模板匹配、图像识别
+  - Pillow (PIL): 图像格式转换
+  - NumPy: 图像数据处理
+
+AI通信:
+  - httpx: 异步HTTP客户端，用于LLM API调用
+
+Web界面:
+  - Flask: 后端API服务
+
+三、AI模型接入
+--------------
+服务商          API协议           默认模型
+-----------------------------------------------
+OpenAI          OpenAI API        gpt-4o
+Claude          Anthropic API     claude-3.5-sonnet
+阿里百炼        OpenAI兼容        qwen-max
+DeepSeek        OpenAI兼容        deepseek-chat
+智谱AI          OpenAI兼容        glm-4
+MiniMax         OpenAI兼容        abab6.5s-chat
+火山引擎        OpenAI兼容        doubao-pro
+Moonshot        OpenAI兼容        moonshot-v1-8k
+Ollama          Ollama API        qwen3:8b / moondream:1.8b
+
+四、项目结构
+------------
+sauos-aient/
+├── sauos/
+│   ├── core/          # PyAutoGUI + MSS + OpenCV
+│   │   ├── screen.py      屏幕截图模块
+│   │   ├── mouse.py       鼠标控制模块
+│   │   ├── keyboard.py    键盘输入模块
+│   │   ├── window.py      窗口管理模块
+│   │   └── image.py       图像匹配模块
+│   ├── ai/            # httpx + 多模型适配器
+│   │   ├── llm.py         LLM客户端适配器
+│   │   ├── vision.py      视觉分析模块
+│   │   ├── agent.py       AI代理模块
+│   │   └── config.py      配置管理模块
+│   ├── automation.py  # 统一接口封装
+│   └── scheduler.py   # 任务调度器
+├── web.py             # Flask Web服务
+├── run.py             # CLI入口
+├── requirements.txt   # 依赖清单
+├── pyproject.toml     # 项目配置
+└── venv/              # Python虚拟环境
+
+五、运行环境
+------------
+操作系统: macOS / Windows / Linux
+Ollama服务地址: http://10.10.0.20:11434
+Web服务端口: 5678
+
+六、依赖安装
+------------
+pip install pyautogui pillow opencv-python numpy mss httpx flask
+
+七、启动命令
+------------
+Web界面: python web.py
+CLI界面: python run.py

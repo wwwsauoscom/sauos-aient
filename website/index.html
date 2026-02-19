@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAUOS - AI驱动的智能桌面自动化系统</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #0ea5e9;
+            --dark: #0f172a;
+            --gray-900: #1e293b;
+            --gray-800: #334155;
+            --gray-600: #475569;
+            --gray-400: #94a3b8;
+            --gray-200: #e2e8f0;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--dark);
+            color: var(--gray-200);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 64px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--gray-400);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--white);
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--gray-200);
+            border: 1px solid var(--gray-600);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gray-400);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            background: radial-gradient(ellipse at top, rgba(99, 102, 241, 0.15) 0%, transparent 60%);
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--primary);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-size: clamp(40px, 6vw, 72px);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 24px;
+        }
+
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--gray-400);
+            max-width: 640px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-buttons .btn {
+            padding: 14px 28px;
+            font-size: 16px;
+        }
+
+        .github-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-header h2 {
+            font-size: 36px;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: var(--gray-400);
+            font-size: 18px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .feature-card {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            color: var(--white);
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--gray-400);
+            font-size: 15px;
+        }
+
+        /* Architecture Section */
+        .architecture {
+            padding: 100px 0;
+            background: var(--gray-900);
+        }
+
+        .arch-diagram {
+            background: var(--dark);
+            border: 1px solid var(--gray-800);
+            border-radius: 16px;
+            padding: 48px;
+            margin-top: 48px;
+        }
+
+        .arch-layer {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+        }
+
+        .arch-layer:last-child {
+            margin-bottom: 0;
+        }
+
+        .arch-layer-title {
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .arch-modules {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .arch-module {
+            background: var(--dark);
+            border: 1px solid var(--gray-800);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            color: var(--gray-200);
+        }
+
+        /* Models Section */
+        .models {
+            padding: 100px 0;
+        }
+
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 48px;
+        }
+
+        .model-card {
+            background: var(--gray-900);
+            border: 1px solid var(--gray-800);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .model-card:hover {
+            border-color: var(--gray-600);
+        }
+
+        .model-card h4 {
+            color: var(--white);
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .model-card p {
+            color: var(--gray-400);
+            font-size: 13px;
+        }
+
+        /* Code Section */
+        .quickstart {
+            padding: 100px 0;
+            background: var(--gray-900);
+        }
+
+        .code-block {
+            background: var(--dark);
+            border: 1px solid var(--gray-800);
+            border-radius: 12px;
+            overflow: hidden;
+            margin-top: 48px;
+        }
+
+        .code-header {
+            background: var(--gray-800);
+            padding: 12px 20px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dot.red { background: #ef4444; }
+        .code-dot.yellow { background: #eab308; }
+        .code-dot.green { background: #22c55e; }
+
+        .code-content {
+            padding: 24px;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 14px;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+
+        .code-comment { color: var(--gray-600); }
+        .code-command { color: var(--secondary); }
+        .code-string { color: #a5d6ff; }
+
+        /* Open Source Section */
+        .opensource {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .opensource-card {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(14, 165, 233, 0.1));
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 24px;
+            padding: 64px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .opensource h2 {
+            font-size: 36px;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .opensource p {
+            color: var(--gray-400);
+            font-size: 18px;
+            margin-bottom: 32px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 48px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--gray-400);
+        }
+
+        /* Footer */
+        footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--gray-800);
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--gray-600);
+            font-size: 14px;
+        }
+
+        footer a {
+            color: var(--gray-400);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--white);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 120px 0 80px;
+            }
+
+            .arch-diagram {
+                padding: 24px;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 24px;
+            }
+
+            .opensource-card {
+                padding: 40px 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">SAU<span>OS</span></a>
+            <ul class="nav-links">
+                <li><a href="#features">功能特性</a></li>
+                <li><a href="#architecture">系统架构</a></li>
+                <li><a href="#models">AI模型</a></li>
+                <li><a href="#quickstart">快速开始</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="https://github.com/sauos/sauos" class="btn btn-outline github-btn" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    GitHub
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-badge">
+                <span>Open Source</span>
+                <span>MIT License</span>
+            </div>
+            <h1>
+                <span class="gradient">AI驱动</span>的<br>
+                智能桌面自动化系统
+            </h1>
+            <p>
+                SAUOS 通过大语言模型和视觉理解能力，让计算机像人一样"看"屏幕、"理解"界面、"执行"操作。
+                用自然语言控制一切，告别繁琐的脚本编写。
+            </p>
+            <div class="hero-buttons">
+                <a href="#quickstart" class="btn btn-primary">开始使用</a>
+                <a href="https://github.com/sauos/sauos" class="btn btn-outline github-btn" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    查看源码
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>核心能力</h2>
+                <p>让AI成为你的数字员工</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">👁️</div>
+                    <h3>视觉理解</h3>
+                    <p>实时截屏分析，精准识别UI元素、文本内容、按钮位置，理解屏幕上的一切。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧠</div>
+                    <h3>智能决策</h3>
+                    <p>基于大语言模型的任务规划，自动分解复杂操作步骤，像人一样思考和执行。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🖱️</div>
+                    <h3>精准操控</h3>
+                    <p>鼠标点击/拖拽、键盘输入、热键组合、窗口管理，完整的系统级操作能力。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>多模型支持</h3>
+                    <p>OpenAI、Claude、阿里百炼、DeepSeek等8+大模型一键切换，灵活适配不同场景。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏠</div>
+                    <h3>私有部署</h3>
+                    <p>支持Ollama本地模型，数据不出企业内网，满足最严格的安全合规要求。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>Web界面</h3>
+                    <p>可视化操作界面，实时预览屏幕，查看AI分析结果，监控任务执行状态。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Architecture Section -->
+    <section class="architecture" id="architecture">
+        <div class="container">
+            <div class="section-header">
+                <h2>系统架构</h2>
+                <p>三层架构，模块化设计</p>
+            </div>
+            <div class="arch-diagram">
+                <div class="arch-layer">
+                    <div class="arch-layer-title">用户界面层</div>
+                    <div class="arch-modules">
+                        <div class="arch-module">Web UI (Flask)</div>
+                        <div class="arch-module">CLI 交互界面</div>
+                        <div class="arch-module">API 接口</div>
+                    </div>
+                </div>
+                <div class="arch-layer">
+                    <div class="arch-layer-title">AI 智能层</div>
+                    <div class="arch-modules">
+                        <div class="arch-module">视觉分析 Vision</div>
+                        <div class="arch-module">LLM 适配器 (8+ 模型)</div>
+                        <div class="arch-module">AI Agent 自主执行</div>
+                        <div class="arch-module">配置管理器</div>
+                    </div>
+                </div>
+                <div class="arch-layer">
+                    <div class="arch-layer-title">自动化核心层</div>
+                    <div class="arch-modules">
+                        <div class="arch-module">Screen 屏幕截图</div>
+                        <div class="arch-module">Mouse 鼠标控制</div>
+                        <div class="arch-module">Keyboard 键盘输入</div>
+                        <div class="arch-module">Window 窗口管理</div>
+                        <div class="arch-module">Image 图像匹配</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Models Section -->
+    <section class="models" id="models">
+        <div class="container">
+            <div class="section-header">
+                <h2>支持的 AI 模型</h2>
+                <p>统一接口，一键切换</p>
+            </div>
+            <div class="models-grid">
+                <div class="model-card">
+                    <h4>OpenAI</h4>
+                    <p>GPT-4o / GPT-4-turbo</p>
+                </div>
+                <div class="model-card">
+                    <h4>Claude</h4>
+                    <p>claude-3.5-sonnet</p>
+                </div>
+                <div class="model-card">
+                    <h4>阿里百炼</h4>
+                    <p>qwen-max / qwen-vl</p>
+                </div>
+                <div class="model-card">
+                    <h4>DeepSeek</h4>
+                    <p>deepseek-chat</p>
+                </div>
+                <div class="model-card">
+                    <h4>智谱AI</h4>
+                    <p>glm-4</p>
+                </div>
+                <div class="model-card">
+                    <h4>MiniMax</h4>
+                    <p>abab6.5s-chat</p>
+                </div>
+                <div class="model-card">
+                    <h4>火山引擎</h4>
+                    <p>doubao-pro</p>
+                </div>
+                <div class="model-card">
+                    <h4>Moonshot</h4>
+                    <p>moonshot-v1-8k</p>
+                </div>
+                <div class="model-card">
+                    <h4>Ollama</h4>
+                    <p>本地私有部署</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quickstart Section -->
+    <section class="quickstart" id="quickstart">
+        <div class="container">
+            <div class="section-header">
+                <h2>快速开始</h2>
+                <p>三步启动你的AI助手</p>
+            </div>
+            <div class="code-block">
+                <div class="code-header">
+                    <div class="code-dot red"></div>
+                    <div class="code-dot yellow"></div>
+                    <div class="code-dot green"></div>
+                </div>
+                <div class="code-content">
+                    <span class="code-comment"># 1. 克隆项目</span><br>
+                    <span class="code-command">git clone</span> https://github.com/sauos/sauos.git<br>
+                    <span class="code-command">cd</span> sauos<br><br>
+                    
+                    <span class="code-comment"># 2. 安装依赖</span><br>
+                    <span class="code-command">pip install</span> -r requirements.txt<br><br>
+                    
+                    <span class="code-comment"># 3. 启动服务</span><br>
+                    <span class="code-command">python</span> web.py &nbsp;&nbsp;&nbsp;<span class="code-comment"># Web界面 http://localhost:5678</span><br>
+                    <span class="code-command">python</span> run.py &nbsp;&nbsp;&nbsp;<span class="code-comment"># CLI交互模式</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Source Section -->
+    <section class="opensource">
+        <div class="container">
+            <div class="opensource-card">
+                <h2>开源共建</h2>
+                <p>
+                    SAUOS 采用 MIT 协议开源，欢迎社区贡献代码、提交Issue、分享使用经验。<br>
+                    让我们一起打造最好用的AI自动化工具。
+                </p>
+                <a href="https://github.com/sauos/sauos" class="btn btn-primary github-btn" target="_blank">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    Star on GitHub
+                </a>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value">8+</div>
+                        <div class="stat-label">支持模型</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Python</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">MIT</div>
+                        <div class="stat-label">开源协议</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>
+                SAUOS - Screen Automation Universal Operating System<br>
+                <a href="https://github.com/sauos/sauos" target="_blank">GitHub</a> · 
+                <a href="#quickstart">文档</a> · 
+                MIT License
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,12 @@
+# 电脑自动化系统依赖
+pyautogui>=0.9.54
+pillow>=10.0.0
+opencv-python>=4.8.0
+numpy>=1.24.0
+pynput>=1.7.6
+mss>=9.0.0
+pyobjc-framework-Quartz>=9.0;sys_platform=="darwin"
+python-xlib>=0.33;sys_platform=="linux"
+
+# AI模块依赖
+httpx>=0.25.0
