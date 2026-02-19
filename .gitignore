@@ -23,8 +23,7 @@ Thumbs.db
 
 # Project specific
 *.log
-*.png
-*.jpg
 screenshots/
 config.json
 website/
+!docs/images/

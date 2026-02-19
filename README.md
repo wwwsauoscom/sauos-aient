@@ -8,6 +8,8 @@
 
 **Website / 官网**: [https://sauos-aient.sauos.net](https://sauos-aient.sauos.net)
 
+![SAUOS Screenshot](docs/images/screenshot.png)
+
 ---
 
 [中文](#中文) | [English](#english) | [日本語](#日本語) | [한국어](#한국어) | [Deutsch](#deutsch) | [Русский](#русский)
